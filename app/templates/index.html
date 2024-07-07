@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <span class="title"><h1>{% block title %} The Home Page of {% endblock title %}FlaskApp</h1></span>
+    <div class="content">
+        <h2>This is the main Flask blueprint</h2>
+
+        <form action="." method="get">
+            <label for="start">Start date:</label>
+            <input type="date" id="start" name="interval-start" value="2024-06-01" min="2018-01-01" max="2024-12-31">
+            <input type="date" id="end" name="interval-end" value="2024-07-07" min="2018-01-01" max="2024-12-31">
+            <button onclick="permissions();">Get</button>
+        </form>
+        <script>
+            // Base URLs:
+            function permissions() {
+                let url = [
+                    "{{ url_for('api.index') }}permissions", 
+                    document.querySelector("input#start").value, 
+                    document.querySelector("input#end").value
+                ].join("/");
+                window.open(url, "_blank");
+            }
+        </script>
+
+        <style>
+            label {
+                display: block;
+                font:
+                    1rem 'Fira Sans',
+                    sans-serif;
+            }
+
+            input,
+            label {
+                margin: 0.4rem 0;
+            }
+        </style>
+        <label for="appt">Choose a time for your meeting:</label>
+        <input type="time" id="appt" name="appt" min="09:00" max="18:00" required />
+        <small>Office hours are 9am to 6pm</small>
+    </div>
+{% endblock %}
