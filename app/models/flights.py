@@ -1,5 +1,18 @@
 from app.extensions import db
 
+description = {
+              "airoperator_name":"Ավիաընկերության անվանում",
+              "place_of_business":"Գրանցման երկիր",
+              "flight_no":"Թռիչքի համար",
+              "traffic_type":"Փոխադրման տեսակ",
+              "departure_1":"Մեկնում (Օդանավակայանի կոդ)",
+              "arrival_1":"Ժամանում  (Օդանավակայանի կոդ)",
+              "arrival_1_date_time":"Ժամանման ժամ",
+              "departure_1_date_time":"Մեկնման ժամ",
+              "permission_no":"Թույլտվության համար",
+              "sign_date":"Ստորագրման ամսաթիվ"
+              }
+
 
 class Flight(db.Model):
     __tablename__ = 'flights'
@@ -31,19 +44,7 @@ class Flight(db.Model):
     def to_json(self, fields=fields,  ASCII=True):
         if ASCII:
             return {field: str(getattr(self, field)) for field in fields if field in self.__class__.fields}
-        hy = {
-              "airoperator_name":"Ավիաընկերության անվանում",
-              "place_of_business":"Գրանցման երկիր",
-              "flight_no":"Թռիչքի համար",
-              "traffic_type":"Փոխադրման տեսակ",
-              "departure_1":"Մեկնում (Օդանավակայանի կոդ)",
-              "arrival_1":"Ժամանում  (Օդանավակայանի կոդ)",
-              "arrival_1_date_time":"Ժամանման ժամ",
-              "departure_1_date_time":"Մեկնման ժամ",
-              "permission_no":"Թույլտվության համար",
-              "sign_date":"Ստորագրման ամսաթիվ"
-              }
-        return {hy.get(field, field): str(getattr(self, field)) for field in fields if field in self.__class__.fields}
+        return {description.get(field, field): str(getattr(self, field)) for field in fields if field in self.__class__.fields}
 
 
 

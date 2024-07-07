@@ -29,7 +29,8 @@ def permissions(start=None, end=None):
     print(from_date, to_date)
     data = Flight.query.filter(Flight.sign_date>=from_date, Flight.sign_date<=to_date)
     print(data)
-    return jsonify({"permissions": [each.to_json() for each in data]})
+    fields = ['arrival_1', 'flight_no', 'sign_date', 'departure_1', 'traffic_type', 'permission_no', 'airoperator_name', 'place_of_business', 'arrival_1_date_time', 'departure_1_date_time']
+    return jsonify({"permissions": [each.to_json(fields) for each in data]})
 
 @bp.route('locations/', methods=['GET'])
 def locations():
@@ -50,10 +51,7 @@ def locations():
             return {"locations/?q=": ['in','from','to']}
     data = Flight.query.filter(criterion)
     print(data)
-    fields = ['arrival_1', 'flight_no', 'sign_date', 'departure_1', 'traffic_type', 'permission_no', 'airoperator_name', 'place_of_business', 'arrival_1_date_time', 'departure_1_date_time']
-
-    return jsonify({"flights": [each.to_json(fields) for each in data]})
-
+    return jsonify({"flights": [each.to_json() for each in data]})
 
 @bp.route('air-operators/<airoperator_name>/', methods=['GET'])
 def airoperators(airoperator_name):
@@ -63,4 +61,3 @@ def airoperators(airoperator_name):
             func.time(Flight.departure_1_date_time).between("01:00","07:00"), 
             func.time(Flight.arrival_1_date_time).between("01:00","07:00"))
     return [flight.to_json() for flight in data]
-
