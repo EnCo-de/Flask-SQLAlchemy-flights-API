@@ -28,8 +28,8 @@ class Flight(db.Model):
     def __repr__(self):
         return self.flight_no
 
-    def to_json(self):
-        return {field: str(getattr(self, field)) for field in self.fields}
+    def to_json(self, fields=fields):
+        return {field: str(getattr(self, field)) for field in fields if field in self.__class__.fields}
 
 
 

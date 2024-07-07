@@ -23,10 +23,11 @@ def airoperators(airoperator_name=None):
 
 @bp.route('permissions/<start>/<end>/', methods=['GET'])
 def permissions(start=None, end=None):
-    from_date = datetime.strptime(start, "%Y-%m-%d")
-    to_date = datetime.strptime(end, "%Y-%m-%d")
+    print("     from_date, to_date", start, end)
+    from_date = datetime.strptime(start, "%Y-%m-%dT%H:%M")
+    to_date = datetime.strptime(end, "%Y-%m-%dT%H:%M") # :%S.%f
     print(from_date, to_date)
-    data = Flight.query.filter(Flight.sign_date>from_date, Flight.sign_date<to_date)
+    data = Flight.query.filter(Flight.sign_date>=from_date, Flight.sign_date<=to_date)
     print(data)
     # if from_date:
     #     data = Flight.query.filter_by(airoperator_name='airoperator_name')
@@ -36,4 +37,4 @@ def permissions(start=None, end=None):
     # if isinstance(data, Flight):
     #     return data.jq()
     # return [ta.jq() for ta in data]
-    return jsonify([each.to_json() for each in data])
+    return jsonify({"permissions": [each.to_json() for each in data]})
