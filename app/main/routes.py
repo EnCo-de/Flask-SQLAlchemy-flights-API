@@ -14,10 +14,19 @@ def chart():
         func.time(Flight.departure_1_date_time),
         func.time(Flight.arrival_1_date_time)
         ).order_by(desc(func.count())).limit(5)
-    flights_chart = flights.add_columns(func.count())
-    for flight, num in flights_chart: # this is correct
-        print(flight.uuid, num)
+    flights_chart = flights.add_columns(func.count(), 
+        func.time(Flight.departure_1_date_time),
+        func.time(Flight.arrival_1_date_time))
+    chart_data = []
+    for flight, num, departure_1_time, arrival_1_time  in flights_chart: # this is correct
+        chart_data.append((' '.join(map(str, [
+            flight.departure_1, '-',
+            flight.arrival_1,
+            departure_1_time[:5], '-',
+            arrival_1_time[:5]])), num))
+    print(chart_data)
     print()
     return render_template('chart.html', 
                            ths=description.values(),
-                           flights=flights)
+                           flights=flights,
+                           chart_data=chart_data)
