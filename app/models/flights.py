@@ -18,9 +18,6 @@ class Flight(db.Model):
     __tablename__ = 'flights'
     fields = ['uuid', 'created', 'task_id', 'arrival_1', 'flight_no', 'sign_date', 'departure_1', 'traffic_type', 'permission_no', 'airoperator_name', 'place_of_business', 'arrival_1_date_time', 'departure_1_date_time']
     
-    # _id = db.Column(db.Integer)
-    # title = db.Column(db.String(150))
-    # content = db.Column(db.Text)
     uuid = db.Column(db.Uuid, primary_key=True) #                 ed137e40-fdd1-4c22-8844-69dfc6307299  ac3caede-1f31-44d6-aa44-921cb32f4211
     created = db.Column(db.String(20)) #                         2024-04-02 19:02:52.481000            2024-04-02 19:03:26.020000
     task_id = db.Column(db.Integer) #                    484                                   427
@@ -34,8 +31,8 @@ class Flight(db.Model):
     place_of_business = db.Column(db.String(3), nullable=False) #    ROU                                   MDA
     arrival_1_date_time  = db.Column(db.String(20)) #                      2024-04-03 06:00:00                   2024-04-03 07:00:00
     departure_1_date_time  = db.Column(db.String(20)) #                    2024-04-03 04:00:00
-    # arrival_1_date_time  = db.Column(db.DateTime(timezone=True)) #                      2024-04-03 06:00:00                   2024-04-03 07:00:00
-    # departure_1_date_time  = db.Column(db.DateTime(timezone=True)) #                    2024-04-03 04:00:00
+    # arrival_1_date_time  = db.Column(db.DateTime(timezone=True))
+    # departure_1_date_time  = db.Column(db.DateTime(timezone=True))
 
 
     def __repr__(self):

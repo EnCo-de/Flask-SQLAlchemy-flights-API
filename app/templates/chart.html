@@ -24,16 +24,64 @@
 </script>
 {% endblock %}
 {% block content %}
-    <span class="title"><h1>{% block title %}Հինգ չվերթների գծապատկեր {% endblock title %}</h1></span>
-    <div class="content">
+    <span class="title"><h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">{% block title %}Հինգ չվերթների գծապատկեր {% endblock title %}</h1></span>
+    <div class="content m-8">
         <h2>3. Հինգ առավել հաճախ հանդիպող չվերթների (նույն ուղղությամբ, նույն ժամին) բացահայտում և այդ չվերթների քանակի ցուցադրում աղյուսակի և գծապատկերի (Pie chart) տեսքով:</h2>
     </div>
+
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        չվերթների քանակ
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Մեկնում (Օդանավակայանի կոդ)
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Մեկնման ժամ
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Ժամանում (Օդանավակայանի կոդ)
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Ժամանման ժամ
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for flight, num, departure_1_time, arrival_1_time  in flights_table %}
+                <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{ num }}
+                    </th>
+                    <td class="px-6 py-4">
+                        {{ flight.departure_1 }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ departure_1_time }}
+                    </td>
+                    </th>
+                    <td class="px-6 py-4">
+                        {{ flight.arrival_1 }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ arrival_1_time }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div id="piechart" class="my-5" style="width: 900px; height: 500px;"></div> 
+
     <table>
-        <tr>
+        <thead><tr>
             {% for th in ths %}
             <th>{{ th }}</th>
             {% endfor %}
-        </tr>
+        </tr></thead><tbody>
         {% for flight in flights %}
             <tr>
                 <td>{{ flight.airoperator_name }}</td>
@@ -48,6 +96,5 @@
                 <td>{{ flight.sign_date }}</td>
             </tr>
         {% endfor %}
-    </table>
-    <div id="piechart" style="width: 900px; height: 500px;"></div> 
+    </tbody></table>
 {% endblock %}

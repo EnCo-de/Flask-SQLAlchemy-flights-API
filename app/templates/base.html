@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>{% block title %} {% endblock %} FlaskApp</title>
     {% block head %}{% endblock %}
 </head>
 <body>
-    <nav>
-        <a href="{{ url_for('main.index') }}">FlaskApp</a>
-        <a href="{{ url_for('main.chart') }}">3. Հինգ առավել հաճախ հանդիպող չվերթներ</a>
-        <a href="{{ url_for('api.index') }}">Flights API</a>
-        <a href="{{ url_for('api.airoperators', airoperator_name='Airoperator 1') }}">2. Առանձին վերցրած մեկ ավիափոխադրողի կողմից ժամը 01։00- ից մինչև 07:00 կատարված փոխադրումներ</a>
-        <a href="#">Questions</a>
-    </nav>
+
+    <nav><div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+      <ul class="space-y-2 font-medium">
+        <li><a href="{{ url_for('main.index') }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">FlaskApp</a>
+        </li><li><a href="{{ url_for('api.index') }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Flights API</a>
+        </li><li><a href="{{ url_for('api.flights_all') }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">All Flights</a>
+        </li><li><a href="{{ url_for('api.airoperators', airoperator_name='Airoperator 1') }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">2. Առանձին վերցրած մեկ ավիափոխադրողի կողմից ժամը 01։00- ից մինչև 07:00 կատարված փոխադրումներ</a>
+        </li><li><a href="{{ url_for('main.chart') }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">3. Հինգ առավել հաճախ հանդիպող չվերթներ</a>
+    </li></ul></div></nav>
     <hr>
     <div class="content">
         {% block content %} {% endblock %}
